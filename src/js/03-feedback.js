@@ -26,8 +26,7 @@ function onInputForm(e) {
 
 function onSubmitForm(e) {
   e.preventDefault();
-  const emailValue = formRef.email.value;
-    console.log(inputHolder);
+  console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
     localStorage.removeItem("feedback-form-state");
   formRef.reset();
 }
