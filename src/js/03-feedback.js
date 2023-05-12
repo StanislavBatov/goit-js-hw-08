@@ -17,16 +17,20 @@ formRef.addEventListener('input', throttle(onInputForm, 500))
 formRef.addEventListener('submit', onSubmitForm)
 
 
-let inputHolder = {};
-
 function onInputForm(e) {
-    inputHolder[e.target.name] = e.target.value;
-    storeService.save("feedback-form-state", inputHolder);
+  const inputHolder = JSON.parse(localStorage.getItem("feedback-form-state")) || {};
+  inputHolder[e.target.name] = e.target.value;
+  localStorage.setItem("feedback-form-state", JSON.stringify(inputHolder));
 }
 
 function onSubmitForm(e) {
   e.preventDefault();
-  console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
+  if (JSON.parse(localStorage.getItem("feedback-form-state")) === null) {
+    return alert("All fields must be filled!!!")
+  } else {
+    console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
     localStorage.removeItem("feedback-form-state");
   formRef.reset();
-}
+  }
+  
+  };
